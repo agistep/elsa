@@ -6,15 +6,11 @@ plugins {
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-
 dependencies {
-    implementation(project(":clocks"))
-    implementation 'org.mockito:mockito-core:3.+'
-    implementation 'org.mockito:mockito-junit-jupiter:3.+'
-    implementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
 
     testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
     testImplementation 'org.assertj:assertj-core:3.22.0'
+    testImplementation(project(":clocks-frozen"))
 
 }
 
