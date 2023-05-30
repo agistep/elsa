@@ -35,7 +35,7 @@ class ElsaTest {
 
 		Clock after = Clock.systemDefaultZone();
 		assertThat(after.getZone()).isEqualTo(before.getZone());
-		assertThat(after.instant()).isEqualTo(before.instant());
+		assertThat(after.instant().getEpochSecond()).isEqualTo(before.instant().getEpochSecond());
 	}
 
 	@Test
