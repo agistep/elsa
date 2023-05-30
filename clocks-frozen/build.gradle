@@ -8,7 +8,6 @@ targetCompatibility = 1.8
 
 
 dependencies {
-    implementation(project(":clocks"))
     implementation 'org.mockito:mockito-core:3.+'
     implementation 'org.mockito:mockito-junit-jupiter:3.+'
     implementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'

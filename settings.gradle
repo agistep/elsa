@@ -1,5 +1,4 @@
-rootProject.name = 'clocks'
+rootProject.name = 'elsa'
 
-include('clocks')
 include('clocks-frozen')
 include('example')
