@@ -10,7 +10,7 @@ import java.time.ZoneId;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(ElsaExtension.class)
-class ElsaExtensionTest {
+public class ElsaExtensionTest {
 
 	@Test
 	@Freeze("2014-12-22T10:15:30")
