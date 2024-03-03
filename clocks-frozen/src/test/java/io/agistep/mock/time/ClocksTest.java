@@ -8,7 +8,7 @@ import java.time.ZoneId;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class ClocksTest {
+public class ClocksTest {
 
 	@Test
 	void fixedLocalDateTime() {

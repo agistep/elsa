@@ -1,6 +1,6 @@
 allprojects {
-    version = "1.0.0"
-    group = 'com.masil.commons'
+    version = "1.0.2"
+    group = 'io.agistep'
 
     repositories {
         mavenCentral()
@@ -11,23 +11,82 @@ allprojects {
 subprojects {
     apply plugin: 'java'
     apply plugin: 'maven-publish'
+    apply plugin: 'signing'
 
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
 
     java {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+
         withSourcesJar()
         withJavadocJar()
     }
 
+    jar {
+        manifest {
+            attributes(
+                    'Specification-Title': artifactName,
+                    'Specification-Version': artifactVersion,
+                    'Specification-Vendor': vendor,
+                    'Implementation-Title': artifactName,
+                    'Implementation-Version': artifactVersion,
+                    'Implementation-Vendor': vendor
+            )
+        }
+    }
+
     publishing {
-        publications {
-            maven(MavenPublication) {
-                groupId project.group
-                artifactId project.name
-                version project.version
-                from components.java
+        repositories {
+            maven {
+                name "OSSRH"
+                url "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
+                credentials {
+                    username System.getenv("MAVEN_USERNAME")
+                    password System.getenv("MAVEN_PASSWORD")
+                }
             }
         }
+
+        publications {
+            maven(MavenPublication) {
+                groupId 'io.agistep'
+                artifactId artifactId
+                version artifactVersion
+                from components.java
+                pom {
+                    name = "elsa"
+                    description = "elsa"
+                    url = "https://github.com/agistep/elsa"
+                    licenses {
+                        license {
+                            name = "Apache License"
+                            url = "https://github.com/agistep/elsa/blob/main/License"
+                        }
+                    }
+                    developers {
+                        developer {
+                            id = "len"
+                            name = "jeonggyu"
+                            email = "joenggyu0@gmail.com"
+                        }
+                    }
+                    scm {
+                        connection = "https://github.com/agistep/elsa.git"
+                        developerConnection = "https://github.com/agistep/elsa.git"
+                        url = "https://github.com/agistep/elsa"
+                    }
+                }
+            }
+        }
+    }
+
+    signing {
+        def signingKey = System.getenv("SIGNING_KEY")
+        def signingPassword = System.getenv("SIGNING_PASSWORD")
+        useInMemoryPgpKeys(signingKey, signingPassword)
+        sign publishing.publications.maven
+
     }
 }
